@@ -3,6 +3,7 @@ import {
   ArrowRight,
   BookOpen,
   Boxes,
+  Briefcase,
   CalendarCheck,
   ExternalLink,
   Eye,
@@ -10,6 +11,7 @@ import {
   FlaskConical,
   LayoutGrid,
   Puzzle,
+  ShieldCheck,
   Trophy,
   Wrench,
   type LucideIcon,
@@ -28,7 +30,7 @@ import { ctfChallenges, difficultyClass } from '../data/ctfChallenges';
 import { PivotQuickly } from '../components/PivotQuickly';
 import { domainMap, sectionLabels } from '../data/domains';
 import { research } from '../data/profile';
-import type { Domain, DomainId, SectionId } from '../data/types';
+import type { Domain, DomainId, DomainServices, SectionId } from '../data/types';
 import { useAccent } from '../lib/accent';
 import { useTitle } from '../lib/useTitle';
 import { blogsFor, casesFor, projectsFor, writeupsFor } from '../lib/content';
@@ -190,7 +192,7 @@ function DomainView({ domain }: { domain: Domain }) {
             <div className="mt-16">
               <SectionDivider index={1} total={domain.sections.length} label={sectionLabels.overview} icon={sectionIcons.overview} />
             </div>
-            <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr]">
+            <Reveal className={`grid grid-cols-1 gap-6 ${domain.services ? '' : 'lg:grid-cols-[1.4fr_1fr]'}`}>
               <div className="glass rounded-2xl p-6 sm:p-8">
                 <p className="eyebrow mb-4">What this domain means to me</p>
                 <div className="prose-body">
@@ -199,18 +201,21 @@ function DomainView({ domain }: { domain: Domain }) {
                   ))}
                 </div>
               </div>
-              <div className="glass-accent rounded-2xl p-6 sm:p-8">
-                <p className="eyebrow mb-4">Focus areas</p>
-                <ul className="space-y-3">
-                  {domain.focus.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-sm text-slate-300">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {!domain.services && (
+                <div className="glass-accent rounded-2xl p-6 sm:p-8">
+                  <p className="eyebrow mb-4">Focus areas</p>
+                  <ul className="space-y-3">
+                    {domain.focus.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-sm text-slate-300">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </Reveal>
+            {domain.services && <ServicesCard services={domain.services} />}
           </section>
 
           {domain.sections.slice(1).map((s, i) => (
@@ -500,6 +505,43 @@ function DomainSection({ section, domain }: { section: SectionId; domain: Domain
     default:
       return null;
   }
+}
+
+function ServicesCard({ services }: { services: DomainServices }) {
+  return (
+    <Reveal className="mt-5">
+      <div className="glass-accent relative overflow-hidden rounded-2xl p-6 sm:p-8">
+        <span className="pointer-events-none absolute inset-x-0 top-0 h-0.5 bg-accent" />
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-2xl">
+            <p className="eyebrow">{services.eyebrow}</p>
+            <h3 className="mt-3 text-2xl font-semibold text-white">{services.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">{services.pitch}</p>
+          </div>
+          <Link to="/contact" className="btn-accent shrink-0 self-start">
+            <Briefcase size={16} /> Hire me
+          </Link>
+        </div>
+        <ul className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {services.items.map((s) => (
+            <li key={s.name} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
+              <p className="flex items-center gap-2 text-sm font-semibold text-white">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                {s.name}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-400">{s.detail}</p>
+            </li>
+          ))}
+        </ul>
+        {services.note && (
+          <p className="mt-6 flex items-start gap-2 text-xs text-slate-400">
+            <ShieldCheck size={14} className="mt-0.5 shrink-0 text-accent" />
+            {services.note}
+          </p>
+        )}
+      </div>
+    </Reveal>
+  );
 }
 
 function EventCard({ event }: { event: CtfEvent }) {

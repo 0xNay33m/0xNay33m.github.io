@@ -98,6 +98,21 @@ export const domains: Domain[] = [
       { category: 'Frameworks', items: ['MITRE ATT&CK', 'Diamond Model', 'Cyber Kill Chain'] },
       { category: 'Metadata', items: ['ExifTool', 'FOCA', 'Metagoofil'] },
     ],
+    services: {
+      eyebrow: 'Available for hire',
+      title: 'OSINT investigations, done discreetly',
+      pitch:
+        'I work as an OSINT specialist, offering private-investigator-style research for individuals and businesses. I trace what is publicly available, verify it and deliver a clear, sourced report you can act on.',
+      items: [
+        { name: 'Background checks', detail: 'Verify identities, history and online footprint before you trust, hire or partner.' },
+        { name: 'People search', detail: 'Locate people and connect accounts, aliases and contact points across open sources.' },
+        { name: 'Business due diligence', detail: 'Check companies, owners, domains and reputation before a deal or partnership.' },
+        { name: 'Fraud & scam investigation', detail: 'Trace scammers, fake profiles and fraudulent sites, and document the evidence.' },
+        { name: 'Information discovery', detail: 'Find and verify hard-to-locate information, images and locations.' },
+        { name: 'Digital footprint review', detail: 'See what the internet exposes about you or your company, and how to reduce it.' },
+      ],
+      note: 'Every engagement is confidential, uses lawful open sources only and ends with a written report.',
+    },
   },
   {
     id: 'ctf',

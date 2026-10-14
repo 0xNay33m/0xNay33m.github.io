@@ -41,6 +41,15 @@ export interface Domain {
   focus: string[];
   sections: SectionId[];
   tools: ToolGroup[];
+  services?: DomainServices;
+}
+
+export interface DomainServices {
+  eyebrow: string;
+  title: string;
+  pitch: string;
+  items: { name: string; detail: string }[];
+  note?: string;
 }
 
 export interface Metric {
