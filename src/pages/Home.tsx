@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Award,
   BriefcaseBusiness,
-  Compass,
   Download,
   FlaskConical,
   GraduationCap,
@@ -23,7 +22,6 @@ import { HudCard, HudTags, hexToTriplet, pad2, type HudVariant } from '../compon
 import { Reveal } from '../components/Reveal';
 import { certs } from '../data/certs';
 import { domains } from '../data/domains';
-import { platforms } from '../data/learning';
 import { education, experience, leadership, profile } from '../data/profile';
 import { useAccent } from '../lib/accent';
 import { useTitle } from '../lib/useTitle';
@@ -115,16 +113,6 @@ const aboutCards: AboutCard[] = [
     body: <HudTags items={['Lead Organiser', 'Problem Setter', 'Session Instructor', 'Volunteer']} />,
   },
 ];
-
-const learningLayout: Record<string, { variant: HudVariant; className: string }> = {
-  TryHackMe: { variant: 'feature', className: 'sm:col-span-2 lg:row-span-2' },
-  'Hack The Box': { variant: 'wide', className: 'sm:col-span-2' },
-};
-
-const learningShown = platforms
-  .map((p) => ({ p, variant: learningLayout[p.name]?.variant ?? ('tile' as HudVariant), className: learningLayout[p.name]?.className ?? '' }))
-  .slice(0, 7)
-  .sort((a, b) => (a.p.name === 'TryHackMe' ? -1 : b.p.name === 'TryHackMe' ? 1 : 0));
 
 function SectionIntro({
   eyebrow,
@@ -276,7 +264,7 @@ export default function Home() {
 
       {/* Domains */}
       <section id="domains" className="container-x scroll-mt-24 py-16">
-        <SectionDivider index={1} total={3} label="Domains" icon={Layers} />
+        <SectionDivider index={1} total={2} label="Domains" icon={Layers} />
         <SectionIntro
           eyebrow="Domains"
           title="Choose where to"
@@ -300,7 +288,7 @@ export default function Home() {
 
       {/* About */}
       <section id="about" className="container-x scroll-mt-24 py-16">
-        <SectionDivider index={2} total={3} label="About" icon={UserRound} />
+        <SectionDivider index={2} total={2} label="About" icon={UserRound} />
         <SectionIntro
           eyebrow="About"
           title="The person behind"
@@ -333,54 +321,6 @@ export default function Home() {
               </HudCard>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* Learning curve */}
-      <section id="learning" className="container-x scroll-mt-24 py-16">
-        <SectionDivider index={3} total={3} label="Learning curve" icon={Compass} />
-        <SectionIntro
-          eyebrow="Learning curve"
-          title="Where I learned"
-          highlight="to break things"
-          gradient="from-lime-300 via-rose-400 to-orange-400"
-          desc="The platforms, labs and academies that shaped how I think."
-          cmd="ls ./training"
-          items={platforms.slice(0, 6).map((p) => ({ label: p.mark.toLowerCase(), color: p.color }))}
-        />
-        <div className="grid auto-rows-[minmax(200px,auto)] gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {learningShown.map(({ p, variant, className }, k) => (
-            <Reveal key={p.name} delay={k * 0.05} className={className}>
-              <HudCard
-                rgb={hexToTriplet(p.color)}
-                href={p.url}
-                label={`${p.name}: ${p.tagline}`}
-                index={k}
-                total={platforms.length}
-                path={`learning/${p.mark.toLowerCase()}`}
-                title={p.name}
-                subtitle={p.tagline}
-                variant={variant}
-                mark={p.mark}
-                count={p.stat ? { value: p.stat, label: '' } : undefined}
-              >
-                {variant !== 'tile' && <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-300/90">{p.detail}</p>}
-              </HudCard>
-            </Reveal>
-          ))}
-          <Reveal delay={learningShown.length * 0.05}>
-            <HudCard
-              rgb="148 163 184"
-              to="/learning"
-              label="Full learning curve"
-              index={platforms.length}
-              total={platforms.length}
-              path="learning"
-              title={`+${platforms.length - learningShown.length} more`}
-              subtitle="The full platform list"
-              icon={Compass}
-            />
-          </Reveal>
         </div>
       </section>
 
