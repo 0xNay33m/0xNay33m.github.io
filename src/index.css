@@ -1,0 +1,416 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #60a5fa;
+  --accent-rgb: 96 165 250;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html,
+  body {
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-ink-950 font-sans text-slate-300 antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: rgb(var(--accent-rgb) / 0.35);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-rgb) / 0.9);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  h1, h2, h3, h4 {
+    @apply text-white tracking-tight;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+  .glass {
+    background: linear-gradient(180deg, rgba(22, 28, 40, 0.72), rgba(12, 16, 24, 0.72));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .glass-accent {
+    background: linear-gradient(180deg, rgb(var(--accent-rgb) / 0.07), rgba(10, 13, 20, 0.75) 55%);
+    border: 1px solid rgb(var(--accent-rgb) / 0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .text-accent {
+    color: var(--accent);
+  }
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  .bg-accent-soft {
+    background-color: rgb(var(--accent-rgb) / 0.12);
+  }
+  .border-accent {
+    border-color: rgb(var(--accent-rgb) / 0.4);
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] font-semibold uppercase tracking-[0.28em];
+    color: var(--accent);
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-medium;
+    background: rgb(var(--accent-rgb) / 0.1);
+    border: 1px solid rgb(var(--accent-rgb) / 0.25);
+    color: rgb(var(--accent-rgb) / 1);
+  }
+  .chip-neutral {
+    @apply inline-flex items-center rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-slate-300;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200;
+  }
+  .btn-accent {
+    @apply btn text-white;
+    background: rgb(var(--accent-rgb) / 0.9);
+    box-shadow: 0 10px 30px -10px rgb(var(--accent-rgb) / 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  .btn-accent:hover {
+    background: rgb(var(--accent-rgb) / 1);
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    @apply btn;
+    color: var(--accent);
+    border: 1px solid rgb(var(--accent-rgb) / 0.5);
+    background: rgb(var(--accent-rgb) / 0.05);
+  }
+  .btn-outline:hover {
+    background: rgb(var(--accent-rgb) / 0.14);
+  }
+  .btn-ghost {
+    @apply btn border border-white/10 bg-white/[0.03] text-slate-200 hover:border-white/20 hover:bg-white/[0.06];
+  }
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s, box-shadow 0.35s;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--accent-rgb) / 0.55);
+    box-shadow: 0 24px 60px -24px rgb(var(--accent-rgb) / 0.55);
+  }
+  .section-title {
+    @apply text-xl font-semibold text-white sm:text-2xl;
+  }
+  .prose-body p {
+    @apply leading-relaxed text-slate-400;
+  }
+  .prose-body p + p {
+    @apply mt-4;
+  }
+  .hero-blend {
+    filter: drop-shadow(0 0 18px rgba(59, 130, 246, 0.08));
+  }
+  .hud-corner {
+    @apply pointer-events-none absolute h-3 w-3 transition-all duration-300;
+    border-color: rgb(var(--c) / 0.35);
+  }
+  .domain-card:hover .hud-corner {
+    @apply h-5 w-5;
+    border-color: rgb(var(--c) / 0.9);
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.035;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+/* The track holds the list twice, so shifting by half loops seamlessly. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+}
+.group\/marquee:hover .animate-marquee {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+/*
+ * Dragon logo. Only transform and opacity are animated, so it stays cheap on phones.
+ * The flash and fire share one 6s cycle: the dragon idles, then exhales at ~64%.
+ * Pivots use view-box coordinates of the 1240x938 artwork.
+ */
+.dragon-aura {
+  animation: dragon-aura 3.2s ease-in-out infinite alternate;
+}
+.dragon-breathe {
+  transform-box: view-box;
+  transform-origin: 460px 900px;
+  animation: dragon-breathe 4.8s ease-in-out infinite;
+}
+.dragon-eye {
+  animation: dragon-eye 2.6s ease-in-out infinite;
+}
+.dragon-flash {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: dragon-flash 6s ease-out infinite;
+}
+.dragon-fire {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: dragon-fire 6s ease-out infinite;
+}
+.flame {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+}
+.flame-outer {
+  animation: flame-outer 0.42s ease-in-out infinite alternate;
+}
+.flame-mid {
+  animation: flame-mid 0.31s ease-in-out infinite alternate;
+}
+.flame-core {
+  animation: flame-core 0.23s ease-in-out infinite alternate;
+}
+.flame-tongues {
+  animation: flame-tongues 0.5s ease-in-out infinite alternate;
+}
+.flame-spark {
+  animation: flame-spark 0.75s linear infinite;
+}
+.dragon-ember {
+  animation: dragon-ember 3.6s ease-out infinite;
+}
+@keyframes dragon-aura {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dragon-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.008);
+  }
+}
+@keyframes dragon-eye {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes dragon-flash {
+  0%,
+  63% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  67% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  80% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  94%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+@keyframes dragon-fire {
+  0%,
+  64% {
+    opacity: 0;
+    transform: scale(0.15, 0.5);
+  }
+  68% {
+    opacity: 1;
+    transform: scale(0.75, 0.9);
+  }
+  73% {
+    transform: scale(1, 1);
+  }
+  86% {
+    opacity: 1;
+    transform: scale(1.06, 1.08);
+  }
+  94% {
+    opacity: 0;
+    transform: scale(1.1, 1.18);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.15, 0.5);
+  }
+}
+@keyframes flame-outer {
+  from {
+    transform: scale(1, 1) skewY(0deg);
+  }
+  to {
+    transform: scale(0.92, 1.07) skewY(2deg);
+  }
+}
+@keyframes flame-mid {
+  from {
+    transform: scale(0.96, 1) skewY(0deg);
+  }
+  to {
+    transform: scale(1.05, 0.93) skewY(-2.5deg);
+  }
+}
+@keyframes flame-core {
+  from {
+    transform: scale(1, 1);
+    opacity: 0.95;
+  }
+  to {
+    transform: scale(0.88, 1.12);
+    opacity: 0.75;
+  }
+}
+@keyframes flame-tongues {
+  from {
+    opacity: 0.35;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0.9;
+    transform: translate(1.5px, -0.8px);
+  }
+}
+@keyframes flame-spark {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(26px, var(--sy, 0px));
+  }
+}
+@keyframes dragon-ember {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-3px, -14px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dragon-aura,
+  .dragon-breathe,
+  .dragon-eye {
+    animation: none;
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+.animate-spin-slower {
+  animation: spin-slow 70s linear infinite reverse;
+}
+.animate-scan {
+  animation: scan 4.5s ease-in-out infinite;
+}
+.animate-pulse-ring {
+  animation: pulse-ring 3s ease-out infinite;
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-spin-slow,
+  .animate-spin-slower,
+  .animate-scan,
+  .animate-pulse-ring,
+  .animate-blink,
+  .domain-card * {
+    animation: none !important;
+  }
+}
